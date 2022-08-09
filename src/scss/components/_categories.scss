@@ -1,0 +1,30 @@
+@import '../variables';
+
+.categories {
+  ul {
+    display: flex;
+
+    li {
+      margin-right: 10px;
+      padding: 10px 25px;
+      border-radius: 30px;
+      font-weight: 700;
+      transition: all 0.15s ease-in-out;
+      cursor: pointer;
+
+      &:hover {
+        background-color: $black;
+        color: #fff;
+      }
+
+      &:active {
+        background-color: darken($black, 10%);
+      }
+
+      &.active {
+        background-color: $black;
+        color: #fff;
+      }
+    }
+  }
+}

@@ -1,0 +1,176 @@
+.button {
+  display: inline-block;
+  min-width: 100px;
+  padding: 10px 20px;
+  background-color: $black;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+
+  &,
+  span {
+    color: #fff;
+  }
+
+  i,
+  span,
+  path,
+  svg {
+    transition: all 0.15s ease-in-out;
+  }
+
+  &:hover {
+    background-color: darken($black, 8%);
+  }
+
+  &:active {
+    background-color: darken($black, 12%);
+    transform: translateY(1px);
+  }
+
+  &__delimiter {
+    width: 1px;
+    height: 25px;
+    background-color: rgba(255, 255, 255, 0.25);
+    margin-left: 14px;
+    margin-right: 14px;
+  }
+
+  &--outline {
+    background-color: #fff;
+    border-color: $black;
+
+    &,
+    span {
+      color: $black;
+    }
+
+    svg {
+      path {
+        fill: $black;
+      }
+    }
+
+    &:hover {
+      background-color: $black;
+
+      &,
+      span {
+        color: #fff;
+      }
+
+      svg {
+        path {
+          fill: #fff;
+        }
+      }
+    }
+
+    &:active {
+      background-color: darken($black, 12%);
+    }
+  }
+
+  &--add {
+    display: flex;
+    align-items: center;
+    padding: 7px 12px;
+    border-radius: 5px;
+
+    svg {
+      margin-right: 7px;
+    }
+
+    span {
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    &:hover {
+      i {
+        background-color: #fff;
+        color: $black;
+      }
+    }
+
+    i {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      margin-left: 7px;
+      background-color: $black;
+      border-radius: 30px;
+      font-style: normal;
+      font-size: 12px;
+      font-weight: 600;
+      color: #fff;
+      line-height: 22px;
+    }
+  }
+
+  &--circle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+    padding: 0;
+    border-width: 2px;
+    border-radius: 30px;
+  }
+
+  &--outline {
+    background-color: #fff;
+    border-color: $gray-dark;
+
+    &,
+    span {
+      color: $black;
+    }
+
+    svg {
+      path {
+        fill: $black;
+      }
+    }
+
+    &:hover {
+      background-color: $black;
+
+      &,
+      span {
+        color: #fff;
+      }
+
+      svg {
+        path {
+          fill: #fff;
+        }
+      }
+    }
+
+    &:active {
+      background-color: darken($black, 10%);
+    }
+  }
+
+  &--cart {
+    display: flex;
+    align-items: center;
+    line-height: 23px;
+    padding: 12px 25px;
+
+    svg {
+      margin-right: 8px;
+      margin-bottom: 1px;
+    }
+
+    span {
+      font-size: 16px;
+      font-weight: 600;
+    }
+  }
+}

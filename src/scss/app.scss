@@ -1,0 +1,288 @@
+@import './variables';
+@import './libs/normalize';
+
+@import './components/all';
+
+body {
+  background-color: $gray;
+}
+
+.wrapper {
+  width: calc(100vw - 100px);
+  max-width: 1280px;
+  height: 100%;
+  margin: 30px auto;
+  background-color: #fff;
+  border-radius: 5px;
+}
+
+.container {
+  width: 90%;
+  margin: 0 auto;
+
+  &--cart {
+    max-width: 820px;
+    margin: 50px auto;
+
+    .content__title {
+      margin: 0;
+    }
+  }
+}
+
+.content {
+  padding: 30px 0;
+
+  &__top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__title {
+    margin: 50px 0 40px 0;
+    font-size: 38px;
+    font-weight: 800;
+  }
+
+  &__items {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(1, 1fr);
+    grid-column-gap: 10px;
+  }
+}
+
+.cart {
+  &__top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .content__title {
+    display: flex;
+    align-items: center;
+    font-size: 32px;
+
+    svg {
+      position: relative;
+      top: -2px;
+      width: 30px;
+      height: 30px;
+      margin-right: 10px;
+
+      path {
+        stroke: $black;
+        stroke-width: 1.9;
+      }
+    }
+  }
+
+  &__clear {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+
+    span {
+      display: inline-block;
+      margin-left: 7px;
+      font-size: 18px;
+      color: $gray-dark;
+    }
+
+    span,
+    svg,
+    path {
+      transition: all 0.15s ease-in-out;
+    }
+
+    &:hover {
+      svg {
+        path {
+          stroke: darken($gray-dark, $amount: 50);
+        }
+      }
+
+      span {
+        color: rgba(0, 0, 0, 0.6);
+      }
+    }
+  }
+
+  .content__items {
+    display: block;
+  }
+
+  &__item {
+    display: flex;
+    width: 100%;
+    margin-top: 30px;
+    padding-top: 30px;
+    border-top: 1px solid $gray;
+
+    &-img {
+      display: flex;
+      align-items: center;
+      margin-right: 25px;
+      width: 10%;
+
+      img {
+        width: 80px;
+        height: 80px;
+      }
+    }
+
+    &-info {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      width: 40%;
+
+      h3 {
+        font-size: 22px;
+        font-weight: 700;
+        line-height: 27px;
+        letter-spacing: 1px;
+      }
+
+      p {
+        font-size: 18px;
+        color: $gray-dark;
+      }
+    }
+
+    &-count {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 13%;
+
+      &-minus {
+        svg {
+          path:first-of-type {
+            display: none;
+          }
+        }
+      }
+
+      b {
+        font-size: 22px;
+      }
+    }
+
+    &-price {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 33%;
+
+      b {
+        font-size: 22px;
+        font-weight: 700;
+        letter-spacing: 1px;
+      }
+    }
+
+    &-remove {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      width: 4%;
+
+      .button {
+        border-color: darken($color: $gray-dark, $amount: 10);
+      }
+
+      svg {
+        transform: rotate(45deg);
+
+        path {
+          fill: darken($color: $gray-dark, $amount: 15);
+        }
+      }
+
+      .button {
+        svg {
+          width: 11.5px;
+          height: 11.5px;
+          position: relative;
+        }
+
+        &:hover,
+        &:active {
+          border-color: $black;
+          background-color: $black;
+        }
+      }
+    }
+  }
+
+  &__bottom {
+    margin: 70px 0 50px 0;
+
+    &-details {
+      display: flex;
+      justify-content: space-between;
+
+      span {
+        font-size: 22px;
+
+        &:last-of-type {
+          b {
+            color: $black;
+          }
+        }
+      }
+    }
+
+    &-buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 40px;
+
+      .go-back-btn {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 210px;
+
+        border-color: $black;
+
+        span {
+          font-weight: 600;
+          color: $black;
+        }
+
+        &:hover {
+          background-color: $black;
+
+          span {
+            color: #fff;
+          }
+
+          svg {
+            path {
+              stroke: #fff;
+            }
+          }
+        }
+
+        svg {
+          margin-right: 10px;
+
+          path {
+            fill: transparent;
+            stroke: lighten($black, 10%);
+          }
+        }
+      }
+
+      .pay-btn {
+        width: 210px;
+        font-size: 16px;
+        font-weight: 600;
+      }
+    }
+  }
+}
