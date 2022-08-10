@@ -1,26 +1,31 @@
-function ProductBlock() {
+import { useState } from 'react';
+
+function ProductBlock({ brandName, modelName, imageUrl, price, sizes }) {
+  const [selectedSize, setSelectedSize] = useState(null);
+
+  const convertedPrice = price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+
   return (
     <div className="product-block-wrapper">
       <div className="product-block">
-        <img
-          className="product-block__image"
-          src="https://img.brandshop.ru/cache/products/g/gx2487-1_500x500.jpg"
-          alt="Product"
-        />
-        <h4 className="product-block__title">x Pharrell Williams</h4>
-        <p className="product-block__subtitle">Adidas</p>
+        <img className="product-block__image" src={imageUrl} alt="Product" />
+        <h4 className="product-block__title">{modelName}</h4>
+        <p className="product-block__subtitle">{brandName}</p>
         <div className="product-block__selector">
           <ul>
-            <li>39.5 EU</li>
-            <li>40 EU</li>
-            <li>41.5 EU</li>
-            <li>42 EU</li>
-            <li>43 EU</li>
-            <li>45.5 EU</li>
+            {sizes &&
+              sizes.map((size, index) => (
+                <li
+                  key={index}
+                  className={selectedSize === index ? 'active' : ''}
+                  onClick={() => setSelectedSize(index)}>
+                  {size} EU
+                </li>
+              ))}
           </ul>
         </div>
         <div className="product-block__bottom">
-          <div className="product-block__price">16990 ₽</div>
+          <div className="product-block__price">{convertedPrice} ₽</div>
           <button className="button button--outline button--add">
             <svg
               width="11"

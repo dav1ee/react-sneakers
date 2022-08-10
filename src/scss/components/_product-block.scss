@@ -14,7 +14,7 @@
   }
 
   &__title {
-    margin-bottom: 5px;
+    margin: 5px 0;
     font-size: 20px;
     font-weight: 900;
     letter-spacing: 1px;
@@ -28,6 +28,11 @@
   }
 
   &__selector {
+    height: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
     ul {
       display: flex;
       justify-content: center;

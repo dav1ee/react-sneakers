@@ -1,8 +1,38 @@
-function Sort() {
+import { useState, useEffect, useRef } from 'react';
+
+const sortList = [
+  { name: 'популярности', type: 'rating' },
+  { name: 'убыванию цены', type: 'price' },
+  { name: 'возрастанию цены', type: '-price' },
+];
+
+function Sort({ sort, setSort }) {
+  const [open, setOpen] = useState(false);
+
+  const sortRef = useRef();
+
+  const onSetActiveSortName = (obj) => {
+    setSort(obj);
+    setOpen(false);
+  };
+
+  useEffect(() => {
+    const handleOutsideClick = (e) => {
+      if (!e.path.includes(sortRef.current)) {
+        setOpen(false);
+      }
+    };
+
+    document.body.addEventListener('click', handleOutsideClick);
+
+    return () => document.body.removeEventListener('click', handleOutsideClick);
+  }, []);
+
   return (
-    <div className="sort">
+    <div className="sort" ref={sortRef}>
       <div className="sort__label">
         <svg
+          className={open ? 'rotated' : ''}
           width="10"
           height="6"
           viewBox="0 0 10 6"
@@ -14,15 +44,23 @@ function Sort() {
           />
         </svg>
         <b>Сортировать по:</b>
-        <span>популярности</span>
+        <span onClick={() => setOpen(!open)}>{sort.name}</span>
       </div>
-      <div className="sort__popup">
-        <ul>
-          <li className="active">популярности</li>
-          <li>убыванию цены</li>
-          <li>возрастанию цены</li>
-        </ul>
-      </div>
+      {open && (
+        <div className="sort__popup">
+          <ul>
+            {sortList &&
+              sortList.map((obj, index) => (
+                <li
+                  key={index}
+                  className={obj.name === sort.name ? 'active' : ''}
+                  onClick={() => onSetActiveSortName(obj)}>
+                  {obj.name}
+                </li>
+              ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 }
