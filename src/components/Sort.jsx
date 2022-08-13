@@ -11,7 +11,7 @@ function Sort({ sort, setSort }) {
 
   const sortRef = useRef();
 
-  const onSetActiveSortName = (obj) => {
+  const onSetSort = (obj) => {
     setSort(obj);
     setOpen(false);
   };
@@ -54,7 +54,7 @@ function Sort({ sort, setSort }) {
                 <li
                   key={index}
                   className={obj.name === sort.name ? 'active' : ''}
-                  onClick={() => onSetActiveSortName(obj)}>
+                  onClick={() => onSetSort(obj)}>
                   {obj.name}
                 </li>
               ))}

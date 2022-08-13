@@ -1,22 +1,15 @@
-function Pagination() {
+import ReactPaginate from 'react-paginate';
+
+function Pagination({ onPageChange }) {
   return (
-    <ul className="pagination">
-      <li className="previous">
-        <a href="/">{'<'}</a>
-      </li>
-      <li className="selected">
-        <a href="/">1</a>
-      </li>
-      <li>
-        <a href="/">2</a>
-      </li>
-      <li>
-        <a href="/">3</a>
-      </li>
-      <li className="next">
-        <a href="/">{'>'}</a>
-      </li>
-    </ul>
+    <ReactPaginate
+      className="pagination"
+      breakLabel="..."
+      nextLabel=">"
+      previousLabel="<"
+      pageCount={3}
+      onPageChange={({ selected }) => onPageChange(selected + 1)}
+    />
   );
 }
 
