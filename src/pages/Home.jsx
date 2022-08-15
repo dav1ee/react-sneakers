@@ -1,4 +1,5 @@
 import { useState, useEffect, useContext } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 
 import Categories from '../components/Categories';
@@ -7,21 +8,24 @@ import ProductBlock from '../components/ProductBlock';
 import Skeleton from '../components/ProductBlock/Skeleton';
 import Pagination from '../components/Pagination';
 
+import { setCategoryId, setSort, setCurrentPage } from '../redux/slices/filterSlice';
 import { SearchContext } from '../App';
 
 function Home() {
+  const dispatch = useDispatch();
+
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [categoryId, setCategoryId] = useState(0);
-  const [sort, setSort] = useState({ name: 'популярности', type: 'rating' });
 
+  const { categoryId, sort, currentPage } = useSelector((state) => state.filter);
   const { searchValue } = useContext(SearchContext);
 
   const products = items.map((obj) => <ProductBlock key={obj.id} {...obj} />);
   const skeletons = [...new Array(8)].map((_, index) => <Skeleton key={index} />);
 
-  const onPageChange = (page) => setCurrentPage(page);
+  const onSetCategoryId = (id) => dispatch(setCategoryId(id));
+  const onSetSort = (obj) => dispatch(setSort(obj));
+  const onSetCurrentPage = (page) => dispatch(setCurrentPage(page));
 
   useEffect(() => {
     setIsLoading(true);
@@ -44,12 +48,12 @@ function Home() {
   return (
     <div className="container">
       <div className="content__top">
-        <Categories categoryId={categoryId} setCategoryId={setCategoryId} />
-        <Sort sort={sort} setSort={setSort} />
+        <Categories categoryId={categoryId} onSetCategoryId={onSetCategoryId} />
+        <Sort sort={sort} onSetSort={onSetSort} />
       </div>
       <h2 className="content__title">Все кроссовки</h2>
       <div className="content__items">{isLoading ? skeletons : products}</div>
-      <Pagination onPageChange={onPageChange} />
+      <Pagination onSetCurrentPage={onSetCurrentPage} />
     </div>
   );
 }

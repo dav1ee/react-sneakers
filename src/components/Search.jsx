@@ -1,12 +1,29 @@
-import { useContext } from 'react';
+import { useContext, useState, useCallback, useRef } from 'react';
+import debounce from 'lodash.debounce';
 
 import { SearchContext } from '../App';
 
 function Search() {
-  const { searchValue, setSearchValue } = useContext(SearchContext);
+  const [value, setValue] = useState('');
+  const { setSearchValue } = useContext(SearchContext);
+  const inputRef = useRef();
+
+  const updateSearchValue = useCallback(
+    debounce((str) => {
+      setSearchValue(str);
+    }, 300),
+    [],
+  );
+
+  const onInputChange = (e) => {
+    setValue(e.target.value);
+    updateSearchValue(e.target.value);
+  };
 
   const onClear = () => {
     setSearchValue('');
+    setValue('');
+    inputRef.current.focus();
   };
 
   return (
@@ -15,12 +32,13 @@ function Search() {
         <path d="M29.71,28.29l-6.5-6.5-.07,0a12,12,0,1,0-1.39,1.39s0,.05,0,.07l6.5,6.5a1,1,0,0,0,1.42,0A1,1,0,0,0,29.71,28.29ZM14,24A10,10,0,1,1,24,14,10,10,0,0,1,14,24Z" />
       </svg>
       <input
+        ref={inputRef}
         type="text"
         placeholder="Поиск модели..."
-        value={searchValue}
-        onChange={(e) => setSearchValue(e.target.value)}
+        value={value}
+        onChange={onInputChange}
       />
-      {searchValue && (
+      {value && (
         <svg
           onClick={onClear}
           className="search__clearIcon"

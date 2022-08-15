@@ -6,13 +6,13 @@ const sortList = [
   { name: 'возрастанию цены', type: '-price' },
 ];
 
-function Sort({ sort, setSort }) {
+function Sort({ sort, onSetSort }) {
   const [open, setOpen] = useState(false);
 
   const sortRef = useRef();
 
-  const onSetSort = (obj) => {
-    setSort(obj);
+  const onClickSort = (obj) => {
+    onSetSort(obj);
     setOpen(false);
   };
 
@@ -54,7 +54,7 @@ function Sort({ sort, setSort }) {
                 <li
                   key={index}
                   className={obj.name === sort.name ? 'active' : ''}
-                  onClick={() => onSetSort(obj)}>
+                  onClick={() => onClickSort(obj)}>
                   {obj.name}
                 </li>
               ))}

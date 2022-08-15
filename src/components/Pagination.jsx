@@ -1,6 +1,6 @@
 import ReactPaginate from 'react-paginate';
 
-function Pagination({ onPageChange }) {
+function Pagination({ onSetCurrentPage }) {
   return (
     <ReactPaginate
       className="pagination"
@@ -8,7 +8,7 @@ function Pagination({ onPageChange }) {
       nextLabel=">"
       previousLabel="<"
       pageCount={3}
-      onPageChange={({ selected }) => onPageChange(selected + 1)}
+      onPageChange={({ selected }) => onSetCurrentPage(selected + 1)}
     />
   );
 }

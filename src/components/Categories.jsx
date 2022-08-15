@@ -1,6 +1,6 @@
 const categories = ['Все', 'Nike', 'Adidas', 'New Balance', 'Reebok', 'Puma'];
 
-function Categories({ categoryId, setCategoryId }) {
+function Categories({ categoryId, onSetCategoryId }) {
   return (
     <div className="categories">
       <ul>
@@ -9,7 +9,7 @@ function Categories({ categoryId, setCategoryId }) {
             <li
               key={index}
               className={categoryId === index ? 'active' : ''}
-              onClick={() => setCategoryId(index)}>
+              onClick={() => onSetCategoryId(index)}>
               {category}
             </li>
           ))}
