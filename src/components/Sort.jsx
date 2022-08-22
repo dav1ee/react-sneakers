@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 
-const sortList = [
+export const sortList = [
   { name: 'популярности', type: 'rating' },
   { name: 'убыванию цены', type: 'price' },
   { name: 'возрастанию цены', type: '-price' },
