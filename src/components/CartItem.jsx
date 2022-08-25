@@ -1,19 +1,32 @@
-function CartItem() {
+import { useDispatch } from 'react-redux';
+
+import { addProduct, removeProduct, minusProduct } from '../redux/slices/cartSlice';
+import { getFormattedPrice } from '../utils/getFormattedPrice';
+
+function CartItem({ id, modelName, imageUrl, price, size, count }) {
+  const dispatch = useDispatch();
+
+  const onPlusProduct = () => dispatch(addProduct({ id, size }));
+  const onRemoveProduct = () => dispatch(removeProduct({ id, size }));
+  const onMinusProduct = () => dispatch(minusProduct({ id, size }));
+
+  const formattedPrice = getFormattedPrice(price * count);
+
   return (
     <div className="cart__item">
       <div className="cart__item-img">
-        <img
-          className="product-block__image"
-          src="https://img.brandshop.ru/cache/products/g/gx2487-1_500x500.jpg"
-          alt="Product"
-        />
+        <img className="product-block__image" src={imageUrl} alt="Product" />
       </div>
       <div className="cart__item-info">
-        <h3>x Pharrell Williams</h3>
-        <p>42 EU</p>
+        <h3>{modelName}</h3>
+        <p>{size} EU</p>
       </div>
       <div className="cart__item-count">
-        <div className="button button--outline button--circle cart__item-count-minus">
+        <div
+          className={`button button--outline button--circle cart__item-count-minus ${
+            count < 2 ? 'button--disabled' : ''
+          }`}
+          onClick={onMinusProduct}>
           <svg
             width="10"
             height="10"
@@ -28,8 +41,10 @@ function CartItem() {
               fill="#303030"></path>
           </svg>
         </div>
-        <b>2</b>
-        <div className="button button--outline button--circle cart__item-count-plus">
+        <b>{count}</b>
+        <div
+          className="button button--outline button--circle cart__item-count-plus"
+          onClick={onPlusProduct}>
           <svg
             width="10"
             height="10"
@@ -46,10 +61,10 @@ function CartItem() {
         </div>
       </div>
       <div className="cart__item-price">
-        <b>32666 ₽</b>
+        <b>{formattedPrice} ₽</b>
       </div>
       <div className="cart__item-remove">
-        <div className="button button--outline button--circle">
+        <div className="button button--outline button--circle" onClick={onRemoveProduct}>
           <svg
             width="10"
             height="10"

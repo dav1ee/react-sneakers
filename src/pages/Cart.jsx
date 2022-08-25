@@ -1,8 +1,22 @@
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
+import { clearCart } from '../redux/slices/cartSlice';
+import { getFormattedPrice } from '../utils/getFormattedPrice';
+
 import CartItem from '../components/CartItem';
+import CartEmpty from '../components/CartEmpty';
 
 function Cart() {
+  const dispatch = useDispatch();
+
+  const { products, totalPrice, totalCount } = useSelector((state) => state.cart);
+  const formattedPrice = getFormattedPrice(totalPrice);
+
+  const onClearCart = () => dispatch(clearCart());
+
+  if (!totalCount) return <CartEmpty />;
+
   return (
     <div className="container container--cart">
       <div className="cart">
@@ -35,7 +49,7 @@ function Cart() {
             </svg>
             Корзина
           </h2>
-          <div className="cart__clear">
+          <div className="cart__clear" onClick={onClearCart}>
             <svg
               width="20"
               height="20"
@@ -71,17 +85,17 @@ function Cart() {
           </div>
         </div>
         <div className="content__items">
-          <CartItem />
-          <CartItem />
-          <CartItem />
+          {products.map((obj, index) => (
+            <CartItem key={`${obj.id}_${index}`} {...obj} />
+          ))}
         </div>
         <div className="cart__bottom">
           <div className="cart__bottom-details">
             <span>
-              Всего пар: <b>3 шт.</b>
+              Всего пар: <b>{totalCount} шт.</b>
             </span>
             <span>
-              Сумма заказа: <b>32666 ₽</b>
+              Сумма заказа: <b>{formattedPrice} ₽</b>
             </span>
           </div>
           <div className="cart__bottom-buttons">

@@ -173,4 +173,13 @@
       font-weight: 600;
     }
   }
+
+  &--disabled {
+    opacity: 0.35;
+    pointer-events: none;
+
+    i {
+      background-color: lighten($black, 40%);
+    }
+  }
 }
