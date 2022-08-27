@@ -1,4 +1,4 @@
-const categories = ['Все', 'Nike', 'Adidas', 'New Balance', 'Reebok', 'Puma'];
+export const categories = ['Все', 'Nike', 'Adidas', 'New Balance', 'Reebok', 'Puma'];
 
 function Categories({ categoryId, onSetCategoryId }) {
   return (

@@ -7,6 +7,7 @@ const initialState = {
     type: 'rating',
   },
   currentPage: 1,
+  searchValue: '',
 };
 
 const filterSlice = createSlice({
@@ -25,6 +26,10 @@ const filterSlice = createSlice({
       state.currentPage = action.payload;
     },
 
+    setSearchValue: (state, action) => {
+      state.searchValue = action.payload;
+    },
+
     setFilters: (state, action) => {
       state.categoryId = Number(action.payload.categoryId);
       state.currentPage = Number(action.payload.currentPage);
@@ -33,6 +38,7 @@ const filterSlice = createSlice({
   },
 });
 
-export const { setCategoryId, setSort, setCurrentPage, setFilters } = filterSlice.actions;
+export const { setCategoryId, setSort, setCurrentPage, setSearchValue, setFilters } =
+  filterSlice.actions;
 
 export default filterSlice.reducer;

@@ -1,9 +1,9 @@
-import { useEffect, useContext, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import qs from 'qs';
 
-import Categories from '../components/Categories';
+import Categories, { categories } from '../components/Categories';
 import Sort, { sortList } from '../components/Sort';
 import ProductBlock from '../components/ProductBlock';
 import Skeleton from '../components/ProductBlock/Skeleton';
@@ -11,7 +11,6 @@ import Pagination from '../components/Pagination';
 
 import { setCategoryId, setSort, setCurrentPage, setFilters } from '../redux/slices/filterSlice';
 import { fetchProducts } from '../redux/slices/productsSlice';
-import { SearchContext } from '../App';
 
 function Home() {
   const dispatch = useDispatch();
@@ -20,10 +19,8 @@ function Home() {
   const isSearch = useRef(false);
   const isMounted = useRef(false);
 
-  const { categoryId, sort, currentPage } = useSelector((state) => state.filter);
+  const { categoryId, sort, currentPage, searchValue } = useSelector((state) => state.filter);
   const { items, status } = useSelector((state) => state.products);
-
-  const { searchValue } = useContext(SearchContext);
 
   const products = items.map((obj) => <ProductBlock key={obj.id} {...obj} />);
   const skeletons = [...new Array(8)].map((_, index) => <Skeleton key={index} />);
@@ -102,7 +99,9 @@ function Home() {
       </div>
       {status !== 'rejected' ? (
         <>
-          <h2 className="content__title">Все кроссовки</h2>
+          <h2 className="content__title">
+            {categoryId === 0 ? 'Все кроссовки' : `Только ${categories[categoryId]}`}
+          </h2>
           <div className="content__items">{status === 'pending' ? skeletons : products}</div>
           <Pagination onSetCurrentPage={onSetCurrentPage} />
         </>
