@@ -1,30 +1,28 @@
-import { useState, useEffect, useContext, useRef } from 'react';
+import { useEffect, useContext, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import qs from 'qs';
 
 import Categories from '../components/Categories';
-import Sort from '../components/Sort';
+import Sort, { sortList } from '../components/Sort';
 import ProductBlock from '../components/ProductBlock';
 import Skeleton from '../components/ProductBlock/Skeleton';
 import Pagination from '../components/Pagination';
 
 import { setCategoryId, setSort, setCurrentPage, setFilters } from '../redux/slices/filterSlice';
+import { fetchProducts } from '../redux/slices/productsSlice';
 import { SearchContext } from '../App';
-
-import { sortList } from '../components/Sort';
 
 function Home() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const isSearch = useRef(false);
   const isMounted = useRef(false);
 
-  const [items, setItems] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-
   const { categoryId, sort, currentPage } = useSelector((state) => state.filter);
+  const { items, status } = useSelector((state) => state.products);
+
   const { searchValue } = useContext(SearchContext);
 
   const products = items.map((obj) => <ProductBlock key={obj.id} {...obj} />);
@@ -34,22 +32,21 @@ function Home() {
   const onSetSort = (obj) => dispatch(setSort(obj));
   const onSetCurrentPage = (page) => dispatch(setCurrentPage(page));
 
-  const fetchProducts = () => {
-    setIsLoading(true);
-
+  const getProducts = async () => {
     const search = searchValue ? `modelName=${searchValue}` : '';
     const category = categoryId > 0 ? categoryId : '';
     const sortBy = sort.type.replace('-', '');
     const order = sort.type.includes('-') ? 'asc' : 'desc';
 
-    axios
-      .get(
-        `https://62f25d0e18493ca21f32200f.mockapi.io/items?page=${currentPage}&limit=8&${search}&category=${category}&sortBy=${sortBy}&order=${order}`,
-      )
-      .then(({ data }) => {
-        setItems(data);
-        setIsLoading(false);
-      });
+    dispatch(
+      fetchProducts({
+        currentPage,
+        search,
+        category,
+        sortBy,
+        order,
+      }),
+    );
   };
 
   // Сохранение параметров в URL
@@ -91,7 +88,7 @@ function Home() {
     window.scrollTo(0, 0);
 
     if (!isSearch.current) {
-      fetchProducts();
+      getProducts();
     }
 
     isSearch.current = false;
@@ -103,9 +100,18 @@ function Home() {
         <Categories categoryId={categoryId} onSetCategoryId={onSetCategoryId} />
         <Sort sort={sort} onSetSort={onSetSort} />
       </div>
-      <h2 className="content__title">Все кроссовки</h2>
-      <div className="content__items">{isLoading ? skeletons : products}</div>
-      <Pagination onSetCurrentPage={onSetCurrentPage} />
+      {status !== 'rejected' ? (
+        <>
+          <h2 className="content__title">Все кроссовки</h2>
+          <div className="content__items">{status === 'pending' ? skeletons : products}</div>
+          <Pagination onSetCurrentPage={onSetCurrentPage} />
+        </>
+      ) : (
+        <div className="content__error-info">
+          <h2>Что-то пошло не так...</h2>
+          <p>Произошла ошибка при загрузке товаров, попробуйте позже.</p>
+        </div>
+      )}
     </div>
   );
 }
