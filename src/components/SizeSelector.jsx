@@ -1,0 +1,18 @@
+function SizeSelector({ sizes, selectedSize, setSelectedSize }) {
+  return (
+    <div className="size-selector">
+      <ul>
+        {sizes.map((size, index) => (
+          <li
+            key={index}
+            className={selectedSize === index ? 'active' : ''}
+            onClick={() => setSelectedSize(index)}>
+            {size} EU
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+export default SizeSelector;

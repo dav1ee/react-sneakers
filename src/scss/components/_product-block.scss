@@ -1,16 +1,27 @@
 .product-block {
   width: 250px;
-  margin-bottom: 70px;
+  padding-bottom: 15px;
   text-align: center;
+  background-image: linear-gradient(to bottom, $gray 50%, transparent 50%);
+  background-position: 0% -101%;
+  background-size: 100% 200%;
+  transition: transform 0.2s, background-position 0.3s linear;
+
+  &:hover {
+    transform: scale(1.07);
+    background-position: 0% -200%;
+  }
 
   &-wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-bottom: 50px;
   }
 
   &__image {
     width: 250px;
+    height: 250px;
   }
 
   &__title {
@@ -25,41 +36,6 @@
     font-size: 14px;
     font-weight: 700;
     color: $gray-dark;
-  }
-
-  &__selector {
-    height: 50px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-
-    ul {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-
-      li {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 62px;
-        height: 25px;
-        background-color: $gray;
-        font-size: 11px;
-        cursor: pointer;
-        transition: all 0.15s ease-in-out;
-
-        &:hover {
-          background-color: $black;
-          color: #fff;
-        }
-
-        &.active {
-          background-color: $black;
-          color: #fff;
-        }
-      }
-    }
   }
 
   &__bottom {

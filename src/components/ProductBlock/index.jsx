@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
+import SizeSelector from '../SizeSelector';
 import { addProduct, cartProductsByIdSelector } from '../../redux/slices/cartSlice';
 import { getFormattedPrice } from '../../utils/getFormattedPrice';
 
@@ -17,6 +19,8 @@ function ProductBlock({ id, brandName, modelName, imageUrl, price, sizes }) {
       }, 0)
     : 0;
 
+  const onSetSelectedSize = (size) => setSelectedSize(size);
+
   const onAddProduct = () => {
     const product = {
       id,
@@ -32,22 +36,16 @@ function ProductBlock({ id, brandName, modelName, imageUrl, price, sizes }) {
   return (
     <div className="product-block-wrapper">
       <div className="product-block">
-        <img className="product-block__image" src={imageUrl} alt="Product" />
-        <h4 className="product-block__title">{modelName}</h4>
+        <Link to={`/product/${id}`}>
+          <img className="product-block__image" src={imageUrl} alt="Product" />
+          <h4 className="product-block__title">{modelName}</h4>
+        </Link>
         <p className="product-block__subtitle">{brandName}</p>
-        <div className="product-block__selector">
-          <ul>
-            {sizes &&
-              sizes.map((size, index) => (
-                <li
-                  key={index}
-                  className={selectedSize === index ? 'active' : ''}
-                  onClick={() => setSelectedSize(index)}>
-                  {size} EU
-                </li>
-              ))}
-          </ul>
-        </div>
+        <SizeSelector
+          sizes={sizes}
+          selectedSize={selectedSize}
+          setSelectedSize={onSetSelectedSize}
+        />
         <div className="product-block__bottom">
           <div className="product-block__price">{formattedPrice} ₽</div>
           <button

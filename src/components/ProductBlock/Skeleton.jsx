@@ -4,7 +4,6 @@ function Sekelton() {
   return (
     <div className="product-block-wrapper">
       <ContentLoader
-        className="product-block"
         width={250}
         height={443}
         viewBox="0 0 250 443"

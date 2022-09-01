@@ -19,12 +19,7 @@ const initialState = {
 const productsSlice = createSlice({
   name: 'products',
   initialState,
-  reducers: {
-    setItems: (state, action) => {
-      state.items = action.payload;
-      state.status = 'fulfilled';
-    },
-  },
+  reducers: {},
   extraReducers: {
     [fetchProducts.pending]: (state) => {
       state.items = [];
@@ -42,7 +37,5 @@ const productsSlice = createSlice({
     },
   },
 });
-
-export const { setItems } = productsSlice.actions;
 
 export default productsSlice.reducer;
