@@ -1,6 +1,7 @@
+import { FC } from 'react';
 import ContentLoader from 'react-content-loader';
 
-function Sekelton() {
+const Sekelton: FC = () => {
   return (
     <div className="product-block-wrapper">
       <ContentLoader
@@ -19,6 +20,6 @@ function Sekelton() {
       </ContentLoader>
     </div>
   );
-}
+};
 
 export default Sekelton;

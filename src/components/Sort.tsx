@@ -1,24 +1,34 @@
-import { useState, useEffect, useRef } from 'react';
+import { FC, useState, useEffect, useRef } from 'react';
 
-export const sortList = [
+type SortProps = {
+  sort: SortItem;
+  onSetSort: (obj: SortItem) => void;
+};
+
+export type SortItem = {
+  name: string;
+  type: string;
+};
+
+export const sortList: SortItem[] = [
   { name: 'популярности', type: 'rating' },
   { name: 'убыванию цены', type: 'price' },
   { name: 'возрастанию цены', type: '-price' },
 ];
 
-function Sort({ sort, onSetSort }) {
+const Sort: FC<SortProps> = ({ sort, onSetSort }) => {
   const [open, setOpen] = useState(false);
 
-  const sortRef = useRef();
+  const sortRef = useRef<HTMLDivElement>(null);
 
-  const onClickSort = (obj) => {
+  const onClickSort = (obj: SortItem) => {
     onSetSort(obj);
     setOpen(false);
   };
 
   useEffect(() => {
-    const handleOutsideClick = (e) => {
-      if (!e.path.includes(sortRef.current)) {
+    const handleOutsideClick = (e: MouseEvent) => {
+      if (sortRef.current && !e.composedPath().includes(sortRef.current)) {
         setOpen(false);
       }
     };
@@ -63,6 +73,6 @@ function Sort({ sort, onSetSort }) {
       )}
     </div>
   );
-}
+};
 
 export default Sort;

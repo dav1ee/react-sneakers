@@ -1,23 +1,39 @@
-import { useState, useEffect } from 'react';
+import { FC, useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 import SizeSelector from '../components/SizeSelector';
 import { addProduct } from '../redux/slices/cartSlice';
 import { getFormattedPrice } from '../utils/getFormattedPrice';
 
-function ProductDetails() {
+const ProductDetails: FC = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const [product, setProduct] = useState(null);
-  const [formattedPrice, setFormattedPrice] = useState(null);
+  const [product, setProduct] = useState<{
+    id: string;
+    brandName: string;
+    modelName: string;
+    imageUrl: string;
+    price: number;
+    sizes: number[];
+    manufacturer: string;
+    material: string;
+  }>();
+  const [formattedPrice, setFormattedPrice] = useState<string>();
   const [selectedSize, setSelectedSize] = useState(0);
 
   const { id } = useParams();
 
-  const onSetSelectedSize = (size) => setSelectedSize(size);
-  const onAddProduct = (obj) => dispatch(addProduct(obj));
+  const onSetSelectedSize = (size: number) => setSelectedSize(size);
+  const onAddProduct = (obj: {
+    id: string;
+    modelName: string;
+    imageUrl: string;
+    price: number;
+    size: number;
+  }) => dispatch(addProduct(obj));
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -26,7 +42,10 @@ function ProductDetails() {
         setProduct(data);
         setFormattedPrice(getFormattedPrice(data.price));
       } catch (err) {
-        console.log('Error:', err.message);
+        let message = 'Some error';
+        if (err instanceof Error) message = err.message;
+        alert(`Произошла ошибка: ${message}`);
+        navigate('/');
       }
     };
 
@@ -82,6 +101,6 @@ function ProductDetails() {
       </div>
     </div>
   );
-}
+};
 
 export default ProductDetails;

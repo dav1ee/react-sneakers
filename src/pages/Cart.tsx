@@ -1,5 +1,6 @@
+import { FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { clearCart } from '../redux/slices/cartSlice';
 import { getFormattedPrice } from '../utils/getFormattedPrice';
@@ -7,10 +8,11 @@ import { getFormattedPrice } from '../utils/getFormattedPrice';
 import CartItem from '../components/CartItem';
 import CartEmpty from '../components/CartEmpty';
 
-function Cart() {
+const Cart: FC = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const { products, totalPrice, totalCount } = useSelector((state) => state.cart);
+  const { products, totalPrice, totalCount } = useSelector((state: any) => state.cart);
   const formattedPrice = getFormattedPrice(totalPrice);
 
   const onClearCart = () => dispatch(clearCart());
@@ -85,7 +87,7 @@ function Cart() {
           </div>
         </div>
         <div className="content__items">
-          {products.map((obj, index) => (
+          {products.map((obj: any, index: number) => (
             <CartItem key={`${obj.id}_${index}`} {...obj} />
           ))}
         </div>
@@ -99,7 +101,9 @@ function Cart() {
             </span>
           </div>
           <div className="cart__bottom-buttons">
-            <Link to="/" className="button button--outline button--add go-back-btn">
+            <button
+              onClick={() => navigate(-1)}
+              className="button button--outline button--add go-back-btn">
               <svg
                 width="8"
                 height="14"
@@ -114,7 +118,7 @@ function Cart() {
                   strokeLinejoin="round"></path>
               </svg>
               <span>Вернуться назад</span>
-            </Link>
+            </button>
             <div className="button pay-btn">
               <span>Оплатить сейчас</span>
             </div>
@@ -123,6 +127,6 @@ function Cart() {
       </div>
     </div>
   );
-}
+};
 
 export default Cart;

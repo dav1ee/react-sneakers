@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { FC, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
@@ -6,20 +6,36 @@ import SizeSelector from '../SizeSelector';
 import { addProduct, cartProductsByIdSelector } from '../../redux/slices/cartSlice';
 import { getFormattedPrice } from '../../utils/getFormattedPrice';
 
-function ProductBlock({ id, brandName, modelName, imageUrl, price, sizes }) {
+type ProductBlockProps = {
+  id: string;
+  brandName: string;
+  modelName: string;
+  imageUrl: string;
+  price: number;
+  sizes: number[];
+};
+
+const ProductBlock: FC<ProductBlockProps> = ({
+  id,
+  brandName,
+  modelName,
+  imageUrl,
+  price,
+  sizes,
+}) => {
   const dispatch = useDispatch();
   const cartProduct = useSelector(cartProductsByIdSelector(id));
 
-  const [selectedSize, setSelectedSize] = useState(null);
+  const [selectedSize, setSelectedSize] = useState<number | null>(null);
 
   const formattedPrice = getFormattedPrice(price);
   const countAdded = cartProduct.length
-    ? cartProduct.reduce((sum, obj) => {
+    ? cartProduct.reduce((sum: number, obj: any) => {
         return obj.count + sum;
       }, 0)
     : 0;
 
-  const onSetSelectedSize = (size) => setSelectedSize(size);
+  const onSetSelectedSize = (size: number) => setSelectedSize(size);
 
   const onAddProduct = () => {
     const product = {
@@ -27,7 +43,7 @@ function ProductBlock({ id, brandName, modelName, imageUrl, price, sizes }) {
       modelName,
       imageUrl,
       price,
-      size: sizes[selectedSize],
+      size: selectedSize !== null && sizes[selectedSize],
     };
 
     dispatch(addProduct(product));
@@ -71,6 +87,6 @@ function ProductBlock({ id, brandName, modelName, imageUrl, price, sizes }) {
       </div>
     </div>
   );
-}
+};
 
 export default ProductBlock;

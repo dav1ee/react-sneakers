@@ -1,6 +1,13 @@
-export const categories = ['Все', 'Nike', 'Adidas', 'New Balance', 'Reebok', 'Puma'];
+import { FC } from 'react';
 
-function Categories({ categoryId, onSetCategoryId }) {
+export const categories: string[] = ['Все', 'Nike', 'Adidas', 'New Balance', 'Reebok', 'Puma'];
+
+type CategoriesProps = {
+  categoryId: number;
+  onSetCategoryId: (cat: number) => void;
+};
+
+const Categories: FC<CategoriesProps> = ({ categoryId, onSetCategoryId }) => {
   return (
     <div className="categories">
       <ul>
@@ -16,6 +23,6 @@ function Categories({ categoryId, onSetCategoryId }) {
       </ul>
     </div>
   );
-}
+};
 
 export default Categories;

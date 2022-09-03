@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 
@@ -7,10 +8,10 @@ import Search from './Search';
 
 import logo from '../assets/images/logo.png';
 
-function Header() {
+const Header: FC = () => {
   const location = useLocation();
 
-  const { totalPrice, totalCount } = useSelector((state) => state.cart);
+  const { totalPrice, totalCount } = useSelector((state: any) => state.cart);
   const formattedPrice = getFormattedPrice(totalPrice);
 
   return (
@@ -66,6 +67,6 @@ function Header() {
       </div>
     </div>
   );
-}
+};
 
 export default Header;

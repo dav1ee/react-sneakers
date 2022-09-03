@@ -1,9 +1,19 @@
+import { FC } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { addProduct, removeProduct, minusProduct } from '../redux/slices/cartSlice';
 import { getFormattedPrice } from '../utils/getFormattedPrice';
 
-function CartItem({ id, modelName, imageUrl, price, size, count }) {
+type CartItemProps = {
+  id: string;
+  modelName: string;
+  imageUrl: string;
+  price: number;
+  size: number;
+  count: number;
+};
+
+const CartItem: FC<CartItemProps> = ({ id, modelName, imageUrl, price, size, count }) => {
   const dispatch = useDispatch();
 
   const onPlusProduct = () => dispatch(addProduct({ id, size }));
@@ -82,6 +92,6 @@ function CartItem({ id, modelName, imageUrl, price, size, count }) {
       </div>
     </div>
   );
-}
+};
 
 export default CartItem;

@@ -1,4 +1,12 @@
-function SizeSelector({ sizes, selectedSize, setSelectedSize }) {
+import { FC } from 'react';
+
+type SizeSelectorProps = {
+  sizes: number[];
+  selectedSize: number | null;
+  setSelectedSize: (size: number) => void;
+};
+
+const SizeSelector: FC<SizeSelectorProps> = ({ sizes, selectedSize, setSelectedSize }) => {
   return (
     <div className="size-selector">
       <ul>
@@ -13,6 +21,6 @@ function SizeSelector({ sizes, selectedSize, setSelectedSize }) {
       </ul>
     </div>
   );
-}
+};
 
 export default SizeSelector;

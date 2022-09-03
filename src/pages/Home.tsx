@@ -1,10 +1,10 @@
-import { useEffect, useRef } from 'react';
+import { FC, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import qs from 'qs';
 
 import Categories, { categories } from '../components/Categories';
-import Sort, { sortList } from '../components/Sort';
+import Sort, { SortItem, sortList } from '../components/Sort';
 import ProductBlock from '../components/ProductBlock';
 import Skeleton from '../components/ProductBlock/Skeleton';
 import Pagination from '../components/Pagination';
@@ -12,22 +12,22 @@ import Pagination from '../components/Pagination';
 import { setCategoryId, setSort, setCurrentPage, setFilters } from '../redux/slices/filterSlice';
 import { fetchProducts } from '../redux/slices/productsSlice';
 
-function Home() {
+const Home: FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const isSearch = useRef(false);
   const isMounted = useRef(false);
 
-  const { categoryId, sort, currentPage, searchValue } = useSelector((state) => state.filter);
-  const { items, status } = useSelector((state) => state.products);
+  const { categoryId, sort, currentPage, searchValue } = useSelector((state: any) => state.filter);
+  const { items, status } = useSelector((state: any) => state.products);
 
-  const products = items.map((obj) => <ProductBlock key={obj.id} {...obj} />);
+  const products = items.map((obj: any) => <ProductBlock key={obj.id} {...obj} />);
   const skeletons = [...new Array(8)].map((_, index) => <Skeleton key={index} />);
 
-  const onSetCategoryId = (id) => dispatch(setCategoryId(id));
-  const onSetSort = (obj) => dispatch(setSort(obj));
-  const onSetCurrentPage = (page) => dispatch(setCurrentPage(page));
+  const onSetCategoryId = (id: number) => dispatch(setCategoryId(id));
+  const onSetSort = (obj: SortItem) => dispatch(setSort(obj));
+  const onSetCurrentPage = (page: number) => dispatch(setCurrentPage(page));
 
   const getProducts = async () => {
     const search = searchValue ? `modelName=${searchValue}` : '';
@@ -36,6 +36,7 @@ function Home() {
     const order = sort.type.includes('-') ? 'asc' : 'desc';
 
     dispatch(
+      // @ts-ignore
       fetchProducts({
         currentPage,
         search,
@@ -113,6 +114,6 @@ function Home() {
       )}
     </div>
   );
-}
+};
 
 export default Home;
