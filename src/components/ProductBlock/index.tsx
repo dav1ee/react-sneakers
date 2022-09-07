@@ -86,7 +86,7 @@ const ProductBlock: FC<ProductBlockProps> = ({
               />
             </svg>
             <span>Добавить</span>
-            {countAdded > 0 && selectedSize !== null && <i>{countAdded}</i>}
+            {countAdded > 0 && <i>{countAdded}</i>}
           </button>
         </div>
       </div>

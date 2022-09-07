@@ -1,4 +1,4 @@
-import { FC, useEffect, useRef } from 'react';
+import { FC, useEffect, useRef, useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import qs from 'qs';
@@ -34,8 +34,12 @@ const Home: FC = () => {
   const products = items.map((obj: ProductType) => <ProductBlock key={obj.id} {...obj} />);
   const skeletons = [...new Array(8)].map((_, index) => <Skeleton key={index} />);
 
-  const onSetCategoryId = (id: number) => dispatch(setCategoryId(id));
-  const onSetSort = (obj: SortType) => dispatch(setSort(obj));
+  const onSetCategoryId = useCallback((id: number) => {
+    dispatch(setCategoryId(id));
+  }, []);
+  const onSetSort = useCallback((obj: SortType) => {
+    dispatch(setSort(obj));
+  }, []);
   const onSetCurrentPage = (page: number) => dispatch(setCurrentPage(page));
 
   const getProducts = async () => {

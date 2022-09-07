@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, memo } from 'react';
 
 export const categories: string[] = ['Все', 'Nike', 'Adidas', 'New Balance', 'Reebok', 'Puma'];
 
@@ -7,7 +7,7 @@ type CategoriesProps = {
   onSetCategoryId: (cat: number) => void;
 };
 
-const Categories: FC<CategoriesProps> = ({ categoryId, onSetCategoryId }) => {
+const Categories: FC<CategoriesProps> = memo(({ categoryId, onSetCategoryId }) => {
   return (
     <div className="categories">
       <ul>
@@ -23,6 +23,6 @@ const Categories: FC<CategoriesProps> = ({ categoryId, onSetCategoryId }) => {
       </ul>
     </div>
   );
-};
+});
 
 export default Categories;

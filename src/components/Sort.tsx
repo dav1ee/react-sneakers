@@ -1,4 +1,4 @@
-import { FC, useState, useEffect, useRef } from 'react';
+import { FC, useState, useEffect, useRef, memo } from 'react';
 
 import { SortType, SortEnum } from '../redux/slices/filterSlice';
 
@@ -13,7 +13,7 @@ export const sortList: SortType[] = [
   { name: 'возрастанию цены', type: SortEnum.PRICE_ASC },
 ];
 
-const Sort: FC<SortProps> = ({ sort, onSetSort }) => {
+const Sort: FC<SortProps> = memo(({ sort, onSetSort }) => {
   const [open, setOpen] = useState(false);
 
   const sortRef = useRef<HTMLDivElement>(null);
@@ -70,6 +70,6 @@ const Sort: FC<SortProps> = ({ sort, onSetSort }) => {
       )}
     </div>
   );
-};
+});
 
 export default Sort;
