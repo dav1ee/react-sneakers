@@ -2,7 +2,7 @@ import { FC } from 'react';
 
 type SizeSelectorProps = {
   sizes: number[];
-  selectedSize: number | null;
+  selectedSize: number;
   setSelectedSize: (size: number) => void;
 };
 

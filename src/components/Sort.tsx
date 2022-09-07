@@ -1,19 +1,16 @@
 import { FC, useState, useEffect, useRef } from 'react';
 
+import { SortType, SortEnum } from '../redux/slices/filterSlice';
+
 type SortProps = {
-  sort: SortItem;
-  onSetSort: (obj: SortItem) => void;
+  sort: SortType;
+  onSetSort: (obj: SortType) => void;
 };
 
-export type SortItem = {
-  name: string;
-  type: string;
-};
-
-export const sortList: SortItem[] = [
-  { name: 'популярности', type: 'rating' },
-  { name: 'убыванию цены', type: 'price' },
-  { name: 'возрастанию цены', type: '-price' },
+export const sortList: SortType[] = [
+  { name: 'популярности', type: SortEnum.RATING },
+  { name: 'убыванию цены', type: SortEnum.PRICE_DESC },
+  { name: 'возрастанию цены', type: SortEnum.PRICE_ASC },
 ];
 
 const Sort: FC<SortProps> = ({ sort, onSetSort }) => {
@@ -21,7 +18,7 @@ const Sort: FC<SortProps> = ({ sort, onSetSort }) => {
 
   const sortRef = useRef<HTMLDivElement>(null);
 
-  const onClickSort = (obj: SortItem) => {
+  const onClickSort = (obj: SortType) => {
     onSetSort(obj);
     setOpen(false);
   };

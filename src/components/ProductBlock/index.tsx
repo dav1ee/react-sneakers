@@ -3,7 +3,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import SizeSelector from '../SizeSelector';
-import { addProduct, cartProductsByIdSelector } from '../../redux/slices/cartSlice';
+import {
+  addProduct,
+  cartProductsByIdSelector,
+  CartProductType,
+} from '../../redux/slices/cartSlice';
 import { getFormattedPrice } from '../../utils/getFormattedPrice';
 
 type ProductBlockProps = {
@@ -26,7 +30,7 @@ const ProductBlock: FC<ProductBlockProps> = ({
   const dispatch = useDispatch();
   const cartProduct = useSelector(cartProductsByIdSelector(id));
 
-  const [selectedSize, setSelectedSize] = useState<number | null>(null);
+  const [selectedSize, setSelectedSize] = useState(0);
 
   const formattedPrice = getFormattedPrice(price);
   const countAdded = cartProduct.length
@@ -38,12 +42,13 @@ const ProductBlock: FC<ProductBlockProps> = ({
   const onSetSelectedSize = (size: number) => setSelectedSize(size);
 
   const onAddProduct = () => {
-    const product = {
+    const product: CartProductType = {
       id,
       modelName,
       imageUrl,
       price,
-      size: selectedSize !== null && sizes[selectedSize],
+      size: sizes[selectedSize],
+      count: 0,
     };
 
     dispatch(addProduct(product));

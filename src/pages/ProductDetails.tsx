@@ -4,7 +4,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 import SizeSelector from '../components/SizeSelector';
-import { addProduct } from '../redux/slices/cartSlice';
+import { addProduct, CartProductType } from '../redux/slices/cartSlice';
 import { getFormattedPrice } from '../utils/getFormattedPrice';
 
 const ProductDetails: FC = () => {
@@ -27,13 +27,7 @@ const ProductDetails: FC = () => {
   const { id } = useParams();
 
   const onSetSelectedSize = (size: number) => setSelectedSize(size);
-  const onAddProduct = (obj: {
-    id: string;
-    modelName: string;
-    imageUrl: string;
-    price: number;
-    size: number;
-  }) => dispatch(addProduct(obj));
+  const onAddProduct = (obj: CartProductType) => dispatch(addProduct(obj));
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -93,6 +87,7 @@ const ProductDetails: FC = () => {
                 imageUrl: product.imageUrl,
                 price: product.price,
                 size: product.sizes[selectedSize],
+                count: 0,
               })
             }>
             <span>Добавить ({product.sizes[selectedSize]} EU)</span>
