@@ -9,15 +9,12 @@ import ProductBlock from '../components/ProductBlock';
 import Skeleton from '../components/ProductBlock/Skeleton';
 import Pagination from '../components/Pagination';
 
-import {
-  SortType,
-  setCategoryId,
-  setSort,
-  setCurrentPage,
-  setFilters,
-} from '../redux/slices/filterSlice';
-import { ProductType, SearchParams, fetchProducts } from '../redux/slices/productsSlice';
 import { RootState, useAppDispatch } from '../redux/store';
+import { setCategoryId, setSort, setCurrentPage, setFilters } from '../redux/slices/filter/slice';
+import { fetchProducts } from '../redux/slices/products/asyncActions';
+
+import { SortType } from '../redux/slices/filter/types';
+import { ProductType, SearchParams } from '../redux/slices/products/types';
 
 const Home: FC = () => {
   const dispatch = useAppDispatch();

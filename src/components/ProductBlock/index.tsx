@@ -3,11 +3,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import SizeSelector from '../SizeSelector';
-import {
-  addProduct,
-  cartProductsByIdSelector,
-  CartProductType,
-} from '../../redux/slices/cartSlice';
+
+import { addProduct } from '../../redux/slices/cart/slice';
+import { cartProductsByIdSelector } from '../../redux/slices/cart/selectors';
+import { CartProductType } from '../../redux/slices/cart/types';
+
 import { getFormattedPrice } from '../../utils/getFormattedPrice';
 
 type ProductBlockProps = {
@@ -34,7 +34,7 @@ const ProductBlock: FC<ProductBlockProps> = ({
 
   const formattedPrice = getFormattedPrice(price);
   const countAdded = cartProduct.length
-    ? cartProduct.reduce((sum: number, obj: any) => {
+    ? cartProduct.reduce((sum: number, obj: CartProductType) => {
         return obj.count + sum;
       }, 0)
     : 0;

@@ -2,8 +2,11 @@ import { FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-import { clearCart } from '../redux/slices/cartSlice';
+import { clearCart } from '../redux/slices/cart/slice';
+import { getCartSelector } from '../redux/slices/cart/selectors';
 import { getFormattedPrice } from '../utils/getFormattedPrice';
+
+import { CartProductType } from '../redux/slices/cart/types';
 
 import CartItem from '../components/CartItem';
 import CartEmpty from '../components/CartEmpty';
@@ -12,7 +15,7 @@ const Cart: FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { products, totalPrice, totalCount } = useSelector((state: any) => state.cart);
+  const { products, totalPrice, totalCount } = useSelector(getCartSelector);
   const formattedPrice = getFormattedPrice(totalPrice);
 
   const onClearCart = () => dispatch(clearCart());
@@ -87,7 +90,7 @@ const Cart: FC = () => {
           </div>
         </div>
         <div className="content__items">
-          {products.map((obj: any, index: number) => (
+          {products.map((obj: CartProductType, index: number) => (
             <CartItem key={`${obj.id}_${index}`} {...obj} />
           ))}
         </div>

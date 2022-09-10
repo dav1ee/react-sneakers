@@ -1,13 +1,10 @@
 import { FC } from 'react';
 import { useDispatch } from 'react-redux';
 
-import {
-  addProduct,
-  removeProduct,
-  minusProduct,
-  CartProductType,
-} from '../redux/slices/cartSlice';
+import { addProduct, removeProduct, minusProduct } from '../redux/slices/cart/slice';
 import { getFormattedPrice } from '../utils/getFormattedPrice';
+
+import { CartProductType } from '../redux/slices/cart/types';
 
 type CartItemProps = {
   id: string;

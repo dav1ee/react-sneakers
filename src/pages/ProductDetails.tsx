@@ -4,8 +4,11 @@ import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 import SizeSelector from '../components/SizeSelector';
-import { addProduct, CartProductType } from '../redux/slices/cartSlice';
+
+import { addProduct } from '../redux/slices/cart/slice';
 import { getFormattedPrice } from '../utils/getFormattedPrice';
+
+import { CartProductType } from '../redux/slices/cart/types';
 
 const ProductDetails: FC = () => {
   const dispatch = useDispatch();

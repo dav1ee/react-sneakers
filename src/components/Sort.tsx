@@ -1,6 +1,6 @@
 import { FC, useState, useEffect, useRef, memo } from 'react';
 
-import { SortType, SortEnum } from '../redux/slices/filterSlice';
+import { SortType, SortEnum } from '../redux/slices/filter/types';
 
 type SortProps = {
   sort: SortType;
