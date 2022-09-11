@@ -5,11 +5,11 @@ import { Link, useLocation } from 'react-router-dom';
 import { getCartSelector } from '../redux/slices/cart/selectors';
 import { getFormattedPrice } from '../utils/getFormattedPrice';
 
-import Search from './Search';
+import { Search } from './';
 
 import logo from '../assets/images/logo.png';
 
-const Header: FC = () => {
+export const Header: FC = () => {
   const location = useLocation();
   const isMounted = useRef(false);
 
@@ -79,5 +79,3 @@ const Header: FC = () => {
     </div>
   );
 };
-
-export default Header;

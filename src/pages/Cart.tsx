@@ -8,8 +8,7 @@ import { getFormattedPrice } from '../utils/getFormattedPrice';
 
 import { CartProductType } from '../redux/slices/cart/types';
 
-import CartItem from '../components/CartItem';
-import CartEmpty from '../components/CartEmpty';
+import { CartItem, CartEmpty } from '../components';
 
 const Cart: FC = () => {
   const dispatch = useDispatch();

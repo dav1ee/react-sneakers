@@ -2,7 +2,7 @@ import { FC, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import SizeSelector from '../SizeSelector';
+import { SizeSelector } from '../';
 
 import { addProduct } from '../../redux/slices/cart/slice';
 import { cartProductsByIdSelector } from '../../redux/slices/cart/selectors';
@@ -19,7 +19,7 @@ type ProductBlockProps = {
   sizes: number[];
 };
 
-const ProductBlock: FC<ProductBlockProps> = ({
+export const ProductBlock: FC<ProductBlockProps> = ({
   id,
   brandName,
   modelName,
@@ -93,5 +93,3 @@ const ProductBlock: FC<ProductBlockProps> = ({
     </div>
   );
 };
-
-export default ProductBlock;

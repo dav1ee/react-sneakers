@@ -7,7 +7,7 @@ type CategoriesProps = {
   onSetCategoryId: (cat: number) => void;
 };
 
-const Categories: FC<CategoriesProps> = memo(({ categoryId, onSetCategoryId }) => {
+export const Categories: FC<CategoriesProps> = memo(({ categoryId, onSetCategoryId }) => {
   return (
     <div className="categories">
       <ul>
@@ -24,5 +24,3 @@ const Categories: FC<CategoriesProps> = memo(({ categoryId, onSetCategoryId }) =
     </div>
   );
 });
-
-export default Categories;

@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import ContentLoader from 'react-content-loader';
 
-const Sekelton: FC = () => {
+export const Skeleton: FC = () => {
   return (
     <div className="product-block-wrapper">
       <ContentLoader
@@ -21,5 +21,3 @@ const Sekelton: FC = () => {
     </div>
   );
 };
-
-export default Sekelton;

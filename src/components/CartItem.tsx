@@ -15,7 +15,7 @@ type CartItemProps = {
   count: number;
 };
 
-const CartItem: FC<CartItemProps> = ({ id, modelName, imageUrl, price, size, count }) => {
+export const CartItem: FC<CartItemProps> = ({ id, modelName, imageUrl, price, size, count }) => {
   const dispatch = useDispatch();
 
   const onPlusProduct = () => dispatch(addProduct({ id, size } as CartProductType));
@@ -95,5 +95,3 @@ const CartItem: FC<CartItemProps> = ({ id, modelName, imageUrl, price, size, cou
     </div>
   );
 };
-
-export default CartItem;

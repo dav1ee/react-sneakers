@@ -13,7 +13,7 @@ export const sortList: SortType[] = [
   { name: 'возрастанию цены', type: SortEnum.PRICE_ASC },
 ];
 
-const Sort: FC<SortProps> = memo(({ sort, onSetSort }) => {
+export const Sort: FC<SortProps> = memo(({ sort, onSetSort }) => {
   const [open, setOpen] = useState(false);
 
   const sortRef = useRef<HTMLDivElement>(null);
@@ -71,5 +71,3 @@ const Sort: FC<SortProps> = memo(({ sort, onSetSort }) => {
     </div>
   );
 });
-
-export default Sort;

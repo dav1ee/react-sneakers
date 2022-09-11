@@ -6,7 +6,7 @@ type SizeSelectorProps = {
   setSelectedSize: (size: number) => void;
 };
 
-const SizeSelector: FC<SizeSelectorProps> = ({ sizes, selectedSize, setSelectedSize }) => {
+export const SizeSelector: FC<SizeSelectorProps> = ({ sizes, selectedSize, setSelectedSize }) => {
   return (
     <div className="size-selector">
       <ul>
@@ -22,5 +22,3 @@ const SizeSelector: FC<SizeSelectorProps> = ({ sizes, selectedSize, setSelectedS
     </div>
   );
 };
-
-export default SizeSelector;

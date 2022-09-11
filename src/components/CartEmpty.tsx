@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
 
-const CartEmpty: FC = () => {
+export const CartEmpty: FC = () => {
   return (
     <div className="cart cart--empty">
       <h2>Корзина пустая</h2>
@@ -29,5 +29,3 @@ const CartEmpty: FC = () => {
     </div>
   );
 };
-
-export default CartEmpty;

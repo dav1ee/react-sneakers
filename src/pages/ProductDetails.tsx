@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-import SizeSelector from '../components/SizeSelector';
+import { SizeSelector } from '../components';
 
 import { addProduct } from '../redux/slices/cart/slice';
 import { getFormattedPrice } from '../utils/getFormattedPrice';
