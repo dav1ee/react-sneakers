@@ -29,5 +29,15 @@
       font-size: 14px;
       color: #7b7b7b;
     }
+
+    @media (max-width: 989px) {
+      h1 {
+        display: none;
+      }
+
+      p {
+        display: none;
+      }
+    }
   }
 }

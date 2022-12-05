@@ -38,4 +38,16 @@
       opacity: 0.8;
     }
   }
+
+  @media (max-width: 1194px) {
+    left: 0;
+
+    input {
+      width: 270px;
+    }
+  }
+
+  @media (max-width: 666px) {
+    display: none;
+  }
 }

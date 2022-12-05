@@ -1,8 +1,11 @@
 @import '../variables';
 
 .categories {
+  overflow-x: auto;
+
   ul {
     display: flex;
+    align-items: center;
 
     li {
       margin-right: 10px;
@@ -25,6 +28,12 @@
         background-color: $black;
         color: #fff;
       }
+    }
+  }
+
+  @media (max-width: 846px) {
+    ul li:nth-child(4) {
+      min-width: 148px;
     }
   }
 }
